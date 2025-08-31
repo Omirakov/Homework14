@@ -40,6 +40,23 @@ public class ProductBasket {
     }
 
 
+    public int countSpecials() {
+
+        int count = 0;
+
+        for (Product product : basket) {
+
+            if (product.isSpecial()) {
+                count++;
+            }
+
+        }
+
+        return count;
+
+    }
+
+
     public void printBasket() {
 
         System.out.println("___________________ Продукты в корзине: ___________________");
@@ -52,11 +69,13 @@ public class ProductBasket {
 
         for (int i = 0; i < size; i++) {
             Product product = basket[i];
-            System.out.println(product.getName() + ": " + product.getPrice());
+            System.out.println(product.toString());
 
         }
 
+
         System.out.println("Итого: " + getPriceOfBasket());
+        System.out.println("Колличество специальных товаров: " + countSpecials());
 
     }
 
