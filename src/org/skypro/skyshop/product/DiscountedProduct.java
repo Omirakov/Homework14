@@ -18,12 +18,22 @@ public class DiscountedProduct extends Product {
 
     @Override
     public String toString() {
-        return getName() + ": " + getPrice() + "(СКИДКА: " + discount + "%)";
+        return getArticlesName() + ": " + getPrice() + "(СКИДКА: " + discount + "%)";
     }
 
     @Override
     public boolean isSpecial() {
         return true;
+    }
+
+    @Override
+    public String getSearchTerm() {
+        return toString();
+    }
+
+    @Override
+    public String getBaseName() {
+        return getArticlesName();
     }
 
 }
