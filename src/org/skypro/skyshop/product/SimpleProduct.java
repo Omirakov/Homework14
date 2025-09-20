@@ -10,8 +10,8 @@ public class SimpleProduct extends Product {
     }
 
     @Override
-    public String getName() {
-        return super.getName();
+    public String getArticlesName() {
+        return super.getArticlesName();
     }
 
     @Override
@@ -21,12 +21,22 @@ public class SimpleProduct extends Product {
 
     @Override
     public String toString() {
-        return getName() + ": " + getPrice();
+        return getArticlesName() + ": " + getPrice();
     }
 
     @Override
     public boolean isSpecial() {
         return false;
+    }
+
+    @Override
+    public String getSearchTerm() {
+        return toString();
+    }
+
+    @Override
+    public String getBaseName() {
+        return getArticlesName();
     }
 
 }

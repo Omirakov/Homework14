@@ -1,9 +1,12 @@
 package org.skypro.skyshop;
 
+import org.skypro.skyshop.article.Article;
 import org.skypro.skyshop.basket.ProductBasket;
 import org.skypro.skyshop.product.DiscountedProduct;
 import org.skypro.skyshop.product.FixPriceProduct;
 import org.skypro.skyshop.product.SimpleProduct;
+import org.skypro.skyshop.search.SearchEngine;
+import org.skypro.skyshop.search.Searchable;
 
 public class App {
 
@@ -64,6 +67,48 @@ public class App {
 
         basket.findProductInBasket("Apple");
         separator();
+
+        SearchEngine searchEngine = new SearchEngine(10);
+
+        SimpleProduct magazine = new SimpleProduct("MAD", 1200);
+        FixPriceProduct newspaper = new FixPriceProduct("New York Times");
+        DiscountedProduct coffee = new DiscountedProduct("Jacobs Monarch", 250, 30);
+        Article alligators = new Article("Alligators", "Alligators are large, crocodile-like...");
+        Article warmUp = new Article("Morning warm-up", "1. Stretching and circular movements...");
+
+        searchEngine.add(magazine);
+        searchEngine.add(newspaper);
+        searchEngine.add(coffee);
+        searchEngine.add(alligators);
+        searchEngine.add(warmUp);
+
+        System.out.println("Поиск по запросу warm-up");
+        displaySearchResults(searchEngine.search("warm-up"));
+        separator();
+
+        System.out.println("Поиск по запросу New York Times");
+        displaySearchResults(searchEngine.search("New York Times"));
+        separator();
+
+        System.out.println("Поиск по запросу MAD");
+        displaySearchResults(searchEngine.search("MAD"));
+        separator();
+
+        System.out.println("Поиск по запросу Alligators");
+        displaySearchResults(searchEngine.search("Alligators"));
+        separator();
+
+        System.out.println("Поиск по запросу Jacobs Monarch");
+        displaySearchResults(searchEngine.search("Jacobs Monarch"));
+        separator();
+    }
+
+    private static void displaySearchResults(Searchable[] results) {
+        for (Searchable result : results) {
+            if (result != null) {
+                System.out.println("Название: " + result.getBaseName() + ", Описание: " + result.getType());
+            }
+        }
     }
 
 }
