@@ -9,6 +9,12 @@ public class DiscountedProduct extends Product {
         super(name);
         this.basePrice = basePrice;
         this.discount = discount;
+        if (basePrice <= 0) {
+            throw new IllegalArgumentException("Базовая цена не может быть меньше 1");
+        }
+        if (discount < 0 || discount > 100) {
+            throw new IllegalArgumentException("Размер скидки должен находиться в диапазоне от 0 до 100 (включительно)");
+        }
     }
 
     @Override
@@ -18,7 +24,7 @@ public class DiscountedProduct extends Product {
 
     @Override
     public String toString() {
-        return getArticlesName() + ": " + getPrice() + "(СКИДКА: " + discount + "%)";
+        return getName() + ": " + getPrice() + "(СКИДКА: " + discount + "%)";
     }
 
     @Override
@@ -33,7 +39,7 @@ public class DiscountedProduct extends Product {
 
     @Override
     public String getBaseName() {
-        return getArticlesName();
+        return getName();
     }
 
 }

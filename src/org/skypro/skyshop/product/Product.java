@@ -8,9 +8,12 @@ public abstract class Product implements Searchable {
 
     public Product(String name) {
         this.name = name;
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException("Имя не может быть null или пустой строкой");
+        }
     }
 
-    public String getArticlesName() {
+    public String getName() {
         return name;
     }
 
@@ -20,7 +23,7 @@ public abstract class Product implements Searchable {
 
     @Override
     public String getSearchTerm() {
-        return getArticlesName();
+        return getName();
     }
 
     @Override

@@ -6,7 +6,7 @@ public interface Searchable {
 
     String getType();
 
-    String getArticlesName();
+    String getName();
 
     default String getBaseName() {
         return null;

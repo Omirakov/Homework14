@@ -41,7 +41,7 @@ public class Article implements Searchable {
     }
 
     @Override
-    public String getArticlesName() {
+    public String getName() {
         return "";
     }
 
