@@ -10,9 +10,9 @@ public class ProductBasket {
     public void addProduct(Product product) {
         if (size < basket.length) {
             basket[size++] = product;
-            System.out.println("Товар: " + product.getArticlesName() + " добавлен в корзину!");
+            System.out.println("Товар: " + product.getName() + " добавлен в корзину!");
         } else {
-            System.out.println("Не удалось добавить " + product.getArticlesName() + ": корзина полная!");
+            System.out.println("Не удалось добавить " + product.getName() + ": корзина полная!");
         }
     }
 
@@ -50,8 +50,8 @@ public class ProductBasket {
 
     public boolean findProductInBasket(String productName) {
         for (int i = 0; i < size; i++) {
-            if (productName.equals(basket[i].getArticlesName())) {
-                System.out.println("Товар: " + basket[i].getArticlesName() + " найден в корзине");
+            if (productName.equals(basket[i].getName())) {
+                System.out.println("Товар: " + basket[i].getName() + " найден в корзине");
                 return true;
             }
         }

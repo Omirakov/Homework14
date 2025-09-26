@@ -7,11 +7,14 @@ public class SimpleProduct extends Product {
     public SimpleProduct(String name, int price) {
         super(name);
         this.price = price;
+        if (price <= 0) {
+            throw new IllegalArgumentException("Цена не может быть меньше 1");
+        }
     }
 
     @Override
-    public String getArticlesName() {
-        return super.getArticlesName();
+    public String getName() {
+        return super.getName();
     }
 
     @Override
@@ -21,7 +24,7 @@ public class SimpleProduct extends Product {
 
     @Override
     public String toString() {
-        return getArticlesName() + ": " + getPrice();
+        return getName() + ": " + getPrice();
     }
 
     @Override
@@ -36,7 +39,7 @@ public class SimpleProduct extends Product {
 
     @Override
     public String getBaseName() {
-        return getArticlesName();
+        return getName();
     }
 
 }
