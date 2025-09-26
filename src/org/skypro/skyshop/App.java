@@ -4,10 +4,13 @@ import org.skypro.skyshop.article.Article;
 import org.skypro.skyshop.basket.ProductBasket;
 import org.skypro.skyshop.product.DiscountedProduct;
 import org.skypro.skyshop.product.FixPriceProduct;
+import org.skypro.skyshop.product.Product;
 import org.skypro.skyshop.product.SimpleProduct;
 import org.skypro.skyshop.search.BestResultNotFound;
 import org.skypro.skyshop.search.SearchEngine;
 import org.skypro.skyshop.search.Searchable;
+
+import java.util.List;
 
 public class App {
 
@@ -19,11 +22,15 @@ public class App {
 
     public static void main(String[] args) {
 
+        separator();
+
         try {
             FixPriceProduct map = new FixPriceProduct("");
         } catch (IllegalArgumentException e) {
             System.out.println(e);
         }
+
+        separator();
 
         try {
             SimpleProduct pen = new SimpleProduct("Pen", 0);
@@ -31,37 +38,79 @@ public class App {
             System.out.println(e);
         }
 
+        separator();
+
         try {
             DiscountedProduct corn = new DiscountedProduct("Corn", 750, 101);
         } catch (IllegalArgumentException e) {
             System.out.println(e);
         }
 
-        SimpleProduct banana = new SimpleProduct("Banana", 200);
-        DiscountedProduct orange = new DiscountedProduct("Orange", 250, 50);
-        DiscountedProduct grape = new DiscountedProduct("Grape", 300, 25);
-        FixPriceProduct strawsberry = new FixPriceProduct("Strawsberry");
-        SimpleProduct magazine = new SimpleProduct("MAD", 1200);
-        FixPriceProduct newspaper = new FixPriceProduct("New York Times");
-        DiscountedProduct coffee = new DiscountedProduct("Jacobs Monarch", 250, 30);
+        separator();
+
+        Product banana = new SimpleProduct("Banana", 200);
+        Product orange = new DiscountedProduct("Orange", 250, 50);
+        Product oreo = new SimpleProduct("Oreo", 245);
+        Product grape = new DiscountedProduct("Grape", 300, 25);
+        Product strawsberry = new FixPriceProduct("Strawsberry");
+        Product magazine = new SimpleProduct("MAD", 1200);
+        Product newspaper = new FixPriceProduct("New York Times");
+        Product coffee = new DiscountedProduct("Jacobs Monarch", 250, 30);
         Article alligators = new Article("Alligators", "Alligators are large, crocodile-like...");
         Article warmUp = new Article("Morning warm-up", "1. Stretching and circular movements...");
 
-        SearchEngine searchEngine = new SearchEngine(10);
-        searchEngine.add(banana);
-        searchEngine.add(orange);
-        searchEngine.add(grape);
-        searchEngine.add(strawsberry);
-        searchEngine.add(magazine);
-        searchEngine.add(newspaper);
-        searchEngine.add(coffee);
-        searchEngine.add(alligators);
-        searchEngine.add(warmUp);
+        ProductBasket basket = new ProductBasket();
+        basket.addProduct(oreo);
+        basket.addProduct(orange);
+        basket.addProduct(orange);
+        basket.addProduct(grape);
+        basket.addProduct(coffee);
+
+        separator();
+
+        List<Product> removed = basket.removeProductInBasket("Orange");
+        System.out.println("Количество удаленных продуктов - " + removed.size() + ":");
+        for (Product product : removed) {
+            System.out.println(product.getName());
+        }
+
+        separator();
+
+        basket.printBasket();
+
+        separator();
+
+        List<Product> removedNonProduct = basket.removeProductInBasket("Strawsberry");
+        if (removedNonProduct.isEmpty()) {
+            System.out.println("Список удаленных продуктов пуст!");
+        }
+
+        separator();
+
+        basket.printBasket();
+
+        separator();
+
+        SearchEngine engine = new SearchEngine();
+        engine.add(banana);
+        engine.add(orange);
+        engine.add(grape);
+        engine.add(strawsberry);
+        engine.add(magazine);
+        engine.add(oreo);
+        engine.add(coffee);
+        engine.add(alligators);
+        engine.add(warmUp);
+
+        List<Searchable> results = engine.search("Or");
+        for (Searchable item : results) {
+            System.out.println("Результаты поиска: " + item.getSearchTerm());
+        }
 
         separator();
 
         try {
-            Searchable best = searchEngine.findBestMatch("Banana");
+            Searchable best = engine.findBestMatch("Banana");
             System.out.println("Лучший результат: " + best.getType() + " " + best.getSearchTerm());
         } catch (BestResultNotFound e) {
             System.out.println(e.getMessage());
@@ -70,7 +119,7 @@ public class App {
         separator();
 
         try {
-            Searchable best = searchEngine.findBestMatch("Alligators");
+            Searchable best = engine.findBestMatch("Alligators");
             System.out.println("Лучший результат: " + best.getType() + " " + best.getSearchTerm());
         } catch (BestResultNotFound e) {
             System.out.println(e.getMessage());
@@ -79,7 +128,7 @@ public class App {
         separator();
 
         try {
-            Searchable best = searchEngine.findBestMatch("Apple");
+            Searchable best = engine.findBestMatch("Apple");
             System.out.println("Лучший результат: " + best.getType() + " " + best.getSearchTerm());
         } catch (BestResultNotFound e) {
             System.out.println(e.getMessage());
@@ -88,19 +137,10 @@ public class App {
         separator();
 
         try {
-            Searchable best = searchEngine.findBestMatch("");
+            Searchable best = engine.findBestMatch("");
             System.out.println("Лучший результат: " + best.getType() + " " + best.getSearchTerm());
         } catch (BestResultNotFound e) {
             System.out.println(e.getMessage());
         }
     }
-
-    private static void displaySearchResults(Searchable[] results) {
-        for (Searchable result : results) {
-            if (result != null) {
-                System.out.println("Название: " + result.getBaseName() + ", Описание: " + result.getType());
-            }
-        }
-    }
-
 }
