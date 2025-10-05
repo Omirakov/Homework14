@@ -36,11 +36,6 @@ public class Article implements Searchable {
     }
 
     @Override
-    public String getBaseName() {
-        return title;
-    }
-
-    @Override
     public String getName() {
         return "";
     }

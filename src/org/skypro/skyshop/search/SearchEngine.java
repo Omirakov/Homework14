@@ -1,7 +1,6 @@
 package org.skypro.skyshop.search;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class SearchEngine {
 
@@ -11,7 +10,7 @@ public class SearchEngine {
         items.add(item);
     }
 
-    public List<Searchable> search(String query) {
+    public Map<String, Searchable> search(String query) {
         List<Searchable> result = new ArrayList<>();
 
         for (Searchable item : items) {
@@ -20,7 +19,14 @@ public class SearchEngine {
             }
         }
 
-        return result;
+        Map<String, Searchable> mapResult = new LinkedHashMap<>();
+        for (Searchable item : result) {
+            String itemName = item.getName();
+            if (itemName != null) {
+                mapResult.put(itemName, item);
+            }
+        }
+        return new TreeMap<>(mapResult);
     }
 
     public Searchable findBestMatch(String search) throws BestResultNotFound {
