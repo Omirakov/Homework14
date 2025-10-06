@@ -12,6 +12,7 @@ import org.skypro.skyshop.search.Searchable;
 
 import java.util.List;
 import java.util.Map;
+import java.util.SortedSet;
 
 public class App {
 
@@ -103,8 +104,22 @@ public class App {
         engine.add(alligators);
         engine.add(warmUp);
 
-        Map<String, Searchable> results = engine.search("M");
-        for (Searchable item : results.values()) {
+        SortedSet<Searchable> results = engine.search("M");
+        for (Searchable item : results) {
+            System.out.println("Результаты поиска: " + item.getSearchTerm());
+        }
+
+        separator();
+
+        SortedSet<Searchable> results2 = engine.search("B");
+        for (Searchable item : results2) {
+            System.out.println("Результаты поиска: " + item.getSearchTerm());
+        }
+
+        separator();
+
+        SortedSet<Searchable> results3 = engine.search("a");
+        for (Searchable item : results3) {
             System.out.println("Результаты поиска: " + item.getSearchTerm());
         }
 
