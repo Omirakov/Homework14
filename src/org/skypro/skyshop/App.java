@@ -11,6 +11,7 @@ import org.skypro.skyshop.search.SearchEngine;
 import org.skypro.skyshop.search.Searchable;
 
 import java.util.List;
+import java.util.Map;
 
 public class App {
 
@@ -102,8 +103,8 @@ public class App {
         engine.add(alligators);
         engine.add(warmUp);
 
-        List<Searchable> results = engine.search("Or");
-        for (Searchable item : results) {
+        Map<String, Searchable> results = engine.search("M");
+        for (Searchable item : results.values()) {
             System.out.println("Результаты поиска: " + item.getSearchTerm());
         }
 

@@ -8,8 +8,4 @@ public interface Searchable {
 
     String getName();
 
-    default String getBaseName() {
-        return null;
-    }
-
 }
