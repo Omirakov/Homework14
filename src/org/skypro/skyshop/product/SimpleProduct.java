@@ -1,5 +1,9 @@
 package org.skypro.skyshop.product;
 
+import org.skypro.skyshop.search.Searchable;
+
+import java.util.Objects;
+
 public class SimpleProduct extends Product {
 
     private int price;

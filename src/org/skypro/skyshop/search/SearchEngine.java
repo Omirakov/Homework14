@@ -4,13 +4,13 @@ import java.util.*;
 
 public class SearchEngine {
 
-    private final List<Searchable> items = new ArrayList<>();
+    private final Set<Searchable> items = new HashSet<>();
 
     public void add(Searchable item) {
         items.add(item);
     }
 
-    public Map<String, Searchable> search(String query) {
+    public SortedSet<Searchable> search(String query) {
         List<Searchable> result = new ArrayList<>();
 
         for (Searchable item : items) {
@@ -19,14 +19,21 @@ public class SearchEngine {
             }
         }
 
-        Map<String, Searchable> mapResult = new LinkedHashMap<>();
-        for (Searchable item : result) {
-            String itemName = item.getName();
-            if (itemName != null) {
-                mapResult.put(itemName, item);
+        Comparator<Searchable> comparator = (s1, s2) -> {
+            String name1 = s1.getName();
+            String name2 = s2.getName();
+
+            int lengthCompare = Integer.compare(name2.length(), name1.length());
+            if (lengthCompare != 0) {
+                return lengthCompare;
             }
-        }
-        return new TreeMap<>(mapResult);
+
+            return name1.compareTo(name2);
+        };
+        SortedSet<Searchable> sortedResult = new TreeSet<>(comparator);
+        sortedResult.addAll(result);
+
+        return sortedResult;
     }
 
     public Searchable findBestMatch(String search) throws BestResultNotFound {

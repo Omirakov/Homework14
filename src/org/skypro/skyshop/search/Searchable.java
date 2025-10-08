@@ -4,8 +4,8 @@ public interface Searchable {
 
     String getSearchTerm();
 
-    String getType();
-
     String getName();
+
+    String getType();
 
 }
