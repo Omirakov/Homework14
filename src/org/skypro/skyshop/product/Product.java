@@ -1,11 +1,10 @@
 package org.skypro.skyshop.product;
 
-import org.skypro.skyshop.article.Article;
 import org.skypro.skyshop.search.Searchable;
 
 import java.util.Objects;
 
-public abstract class Product implements Searchable, Comparable<Searchable> {
+public abstract class Product implements Searchable {
 
     private final String name;
 
@@ -49,8 +48,4 @@ public abstract class Product implements Searchable, Comparable<Searchable> {
         return Objects.hashCode(name);
     }
 
-    @Override
-    public int compareTo(Searchable o) {
-        return 0;
-    }
 }

@@ -11,7 +11,6 @@ import org.skypro.skyshop.search.SearchEngine;
 import org.skypro.skyshop.search.Searchable;
 
 import java.util.List;
-import java.util.Map;
 import java.util.SortedSet;
 
 public class App {
@@ -54,7 +53,7 @@ public class App {
         Product orange = new DiscountedProduct("Orange", 250, 50);
         Product oreo = new SimpleProduct("Oreo", 245);
         Product grape = new DiscountedProduct("Grape", 300, 25);
-        Product strawsberry = new FixPriceProduct("Strawsberry");
+        Product strawsberry = new FixPriceProduct("Strawberry");
         Product magazine = new SimpleProduct("MAD", 1200);
         Product newspaper = new FixPriceProduct("New York Times");
         Product coffee = new DiscountedProduct("Jacobs Monarch", 250, 30);
