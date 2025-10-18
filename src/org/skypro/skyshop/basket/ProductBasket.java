@@ -16,25 +16,11 @@ public class ProductBasket {
     }
 
     public int getPriceOfBasket() {
-        int totalPrice = 0;
-        for (List<Product> products : basket.values()) {
-            for (Product product : products) {
-                totalPrice += product.getPrice();
-            }
-        }
-        return totalPrice;
+        return basket.values().stream().flatMap(List::stream).mapToInt(Product::getPrice).sum();
     }
 
     public int countSpecials() {
-        int count = 0;
-        for (List<Product> products : basket.values()) {
-            for (Product product : products) {
-                if (product.isSpecial()) {
-                    count++;
-                }
-            }
-        }
-        return count;
+        return basket.values().stream().flatMap(List::stream).filter(Product::isSpecial).mapToInt(p -> 1).sum();
     }
 
     public void printBasket() {
@@ -44,20 +30,15 @@ public class ProductBasket {
             return;
         }
 
-        for (Map.Entry<String, List<Product>> entry : basket.entrySet()) {
-            String name = entry.getKey();
-            List<Product> products = entry.getValue();
-            for (Product product : products) {
-                System.out.println(product.toString());
-            }
-        }
+        basket.values().stream().flatMap(List::stream).forEach(System.out::println);
 
         System.out.println("Итого: " + getPriceOfBasket());
         System.out.println("Количество специальных товаров: " + countSpecials());
     }
 
     public boolean findProductInBasket(String productName) {
-        if (basket.containsKey(productName)) {
+        boolean found = basket.containsKey(productName);
+        if (found) {
             System.out.println("Товар: " + productName + " найден в корзине");
             return true;
         } else {
@@ -72,19 +53,11 @@ public class ProductBasket {
     }
 
     public List<Product> removeProductInBasket(String name) {
-        List<Product> removedProducts = basket.remove(name);
-        if (removedProducts == null) {
-            removedProducts = new ArrayList<>();
-        }
-        return removedProducts;
+        return Optional.ofNullable(basket.remove(name)).orElse(Collections.emptyList());
     }
 
     private int getTotalProductCount() {
-        int count = 0;
-        for (List<Product> products : basket.values()) {
-            count += products.size();
-        }
-        return count;
+        return basket.values().stream().mapToInt(List::size).sum();
     }
 
 }
